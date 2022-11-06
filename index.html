@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Curvas de bezier</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <p>Clique ESPACO para adicionar novos pontos de controle da curva selecionada</p>
+    <p>Clique DELETE para remover pontos de controle da curva selecionada</p>
+    <div class="canvas">
+        <canvas></canvas>
+    </div>
+    <div class = "toggle-card">
+        <input id="toggle" class="toggle" type="checkbox">
+        <label for="toggle">Pontos de Controle</label>
+        <input id="toggle" class="toggle" type="checkbox">
+        <label for="toggle">Poligonais de Controle</label>
+        <input id="toggle" class="toggle" type="checkbox">
+        <label for="toggle">Curvas</label>
+    </div>
+    <div class="buttons">
+        <button>+ Adicionar Curva</button>
+        <button>- Remover Curva</button>
+    </div>
+    <div class="adicoes-curva">
+        <H1>200</H1>
+        <button>-</button>
+        <button>+</button>
+    </div>
+    <div class="navegacao-curvas">
+        <p>Navegar entre curvas</p>
+        <button>Anterior</button>
+        <button>Proximo</button>
+    </div>
+	<script src="script.js"></script>
+
+</body>
+
+</html>
