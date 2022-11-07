@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rowdies:wght@300;400;700&display=swap');
+html * {
+    font-family: 'Inter', sans-serif;
+}
+
+button{
+    background-color: #5B65C0 ;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.toggle{
+    display: flex;
+    flex-direction: row;
+}
+
+.toggle-card{
+    display: flex;
+    flex-direction: column;
+    background-color: #252525;
+    color: white;
+    border-radius: 15px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.toggle-group{
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.add-rem{
+    height: 48%;
+    border-radius: 10px;
+}
+
+.adicoes-curva{
+    padding: 10px;
+    background-color: #252525;
+    color: white;
+    border-radius: 15px;
+}
+
+.bottom-group{
+    display: flex;
+}
+
+
+.bottom{
+    align-items: flex-end;
+    padding: 25px;
+    justify-content: space-around;
+    display: flex;
+}
+
+.navegacao-curvas{
+    align-items: center;
+
+}
+
+.nav-but{
+    width: 48%;
+    height: 25px;
+}
+
+.but-add{
+    height: 25px ;
+    width: 25px;
+}
