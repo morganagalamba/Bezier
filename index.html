@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Curvas de bezier</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <p>Clique ESPACO para adicionar novos pontos de controle da curva selecionada</p>
+    <p>Clique DELETE para remover pontos de controle da curva selecionada</p>
+    <div class="canvas">
+        <canvas width="1400px" height="500px">
+            
+        </canvas>
+    </div>
+    <div class="bottom">
+        <div class="bottom-group">
+            <div class = "toggle-card">
+                <div class = "toggle-group" >
+                    <input id="toggle" class="toggle" type="checkbox">
+                    <label for="toggle">Pontos de Controle</label>
+                </div>
+                <div class = "toggle-group"> 
+                    <input id="toggle" class="toggle" type="checkbox">
+                    <label for="toggle">Poligonais de Controle</label>
+                </div>
+                <div class ="toggle-group">
+                    <input id="toggle" class="toggle" type="checkbox">
+                    <label for="toggle">Curvas</label>
+                </div>     
+            </div>
+            <div class="buttons">
+                <button class="add-rem">+ Adicionar Curva</button>
+                <button class="add-rem">- Remover Curva</button>
+            </div>
+            <div class="adicoes-curva">
+                <H1>200</H1>
+                <button class="but-add" >-</button>
+                <button class="but-add" >+</button>
+            </div>
+            
+        </div>
+        <div class="navegacao-curvas">
+            <p>Navegar entre curvas</p>
+            <button class="nav-but">Anterior</button>
+            <button class="nav-but">Proximo</button>
+        </div>
+    </div>
+    
+	<script src="script.js"></script>
+
+</body>
+
+</html>
