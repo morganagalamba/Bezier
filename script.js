@@ -54,7 +54,7 @@ curvas.push([]);
 var curvaSelecionada = -1;
 var pontoSelecionado = [];
 pontoSelecionado.push(0);
-var numAvaliacoes = 200;
+var numAvaliacoes = 100;
 // do canvas
 var clique = false;
 var pontosAparentes = true;
@@ -87,10 +87,10 @@ function desenharCurva(curva) {
     var bezier = [];
     bezier.push(curva[0]);
     let i = 0;
-    for(i; i<= numAvaliacoes; i++){
+    for(i; i<= numAvaliacoes - 2; i++){
       bezier.push(deCasteljau(curva, i / numAvaliacoes));
     }
-    bezier.push(curva[curva.lenght - 2]);
+    bezier.push(curva[curva.lenght - 1]);
     desenharPoligonos(bezier);
   }
 }
@@ -119,6 +119,7 @@ function redesenhar() {
      } else {
        canvas2d.strokeStyle = "pink";
      }
+     desenharPoligonos(curvas[i]);
     }
   }
 
@@ -165,7 +166,7 @@ canvas.addEventListener("mouseup", function(event){
 //FUNCIOALIDADE BOTOES
 //curva
 adcCurva.addEventListener("click", function(event){
-  if((curvaSelecionada == -1 || curvas[curvaSelecionada].lenght>1)){
+  if((curvaSelecionada == -1 || curvas[curvaSelecionada].lenght > 1)){
     estadoCanvas = 1;
     var novaCurva= [];
     curvas.push(novaCurva);
@@ -182,21 +183,21 @@ rmvCurva.addEventListener("click", function(event){
     pontoSelecionado.splice(curvaSelecionada, 1);
     if(curvaSelecionada > 0){
       curvaSelecionada--;
-    };
-  }
-  redesenhar();
+    }
+    redesenhar();
+  } else redesenhar();
 });
 curvaAnterior.addEventListener("click", function(event){
   if(curvaSelecionada > 0){
     curvaSelecionada--;
-  }
-  redesenhar();
+    redesenhar();
+  } else redesenhar();
 });
 curvaPosterior.addEventListener("click", function(event){
   if(curvaSelecionada < curvas.length - 2){
     curvaSelecionada++;
-  }
-  redesenhar();
+    redesenhar();
+  }else redesenhar();
 });
 //pontos
 adcPonto.addEventListener("click", function(event){
@@ -206,14 +207,14 @@ adcPonto.addEventListener("click", function(event){
 pontoAnterior.addEventListener("click", function(event){
   if(pontoSelecionado[curvaSelecionada] > 0){
     pontoSelecionado[curvaSelecionada]--;
-    redraw();
-  }else redraw();
+    redesenhar();
+  }else redesenhar();
 });
 pontoPosterior.addEventListener("click", function(event){
   if(pontoSelecionado[curvaSelecionada] < pontoSelecionado[curvaSelecionada].lenght - 1){
     pontoSelecionado[curvaSelecionada]++;
-    redraw();
-  }else redraw();
+    redesenhar();
+  }else redesenhar();
 });
 //toggles
 togglePontos.addEventListener("click", function(event){
