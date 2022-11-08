@@ -79,10 +79,6 @@ aside {
 .avaluation > .card {
   width: 6.944vw;
   height: 2vw;
-
-  background-repeat: no-repeat;
-  background-size: 5vw;
-  background-position: center;
 }
 
 aside > .card {
@@ -99,6 +95,7 @@ aside > .card {
 }
 
 .card {
+  border-radius: 25px;
 }
 
 .negative-card {

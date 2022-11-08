@@ -83,7 +83,7 @@ function moverPonto() {
 }
 
 /**
- * alterna entre modificar (adicionar) ponto de controle
+ * alterna entre visualizar ou não os pontos de controle
  */
 function alternarPontosControle(evt) {
   document.getElementById('pontosControleButton').classList.toggle('active')
@@ -92,7 +92,7 @@ function alternarPontosControle(evt) {
 }
 
 /**
- * Altera os poligonais de controle
+ * Altera entre visualizar ou não os poligonais de controle
  */
 function alternarPoligonaisControle() {
   document.getElementById('poligonaisControleButton').classList.toggle('active')
@@ -101,7 +101,7 @@ function alternarPoligonaisControle() {
 }
 
 /**
- *Alternar entre as curvas
+ *Alternar entre visualizar ou não as curvas
  */
 function alternarExibicaoCurvas() {
   document.getElementById('exibicaoCurvasButton').classList.toggle('active')
