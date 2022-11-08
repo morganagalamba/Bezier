@@ -46,8 +46,9 @@ section {
 }
 
 aside {
-  width: 100%;
-  height: 100%;
+  margin-top: 10%;
+  width: 85%;
+  height: 60%;
   grid-column: 2;
 
   display: flex;
@@ -60,51 +61,44 @@ aside {
   width: 100%;
   height: 17vw;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-around;
-}
-
-.icons button {
-  width: 6.944vw;
-  height: 6.944vw;
-
-  background-repeat: no-repeat;
-  background-size: 5vw;
-  background-position: center;
 }
 
 .avaluation {
   display: flex;
   align-items: center;
+  flex-direction: row;
 }
 
 .avaluation > input {
-  height: 6.944vw;
+  height: 5vh;
+  width: 5vw;
 }
 
 .avaluation > .card {
   width: 6.944vw;
-  height: 6.944vw;
+  height: 2vw;
 
   background-repeat: no-repeat;
   background-size: 5vw;
   background-position: center;
-  background-image: url(./assets/update.png);
 }
 
 aside > .card {
   width: 50%;
-  height: 4vw;
-  font-size: 1.5vw;
+  height: 2vw;
+  font-size: 1vw;
+}
+
+.board {
+  background-color: white;
+
+  filter: drop-shadow(0.486vw 0.486vw 0.694vw rgba(0, 0, 0, 0.2));
+  border-radius: 20px;
 }
 
 .card {
-  background-color: #e3edf7;
-
-  border-radius: 1.042vw;
-
-  filter: drop-shadow(-0.486vw -0.486vw 0.694vw rgba(255, 255, 255, 0.8))
-    drop-shadow(0.486vw 0.486vw 0.694vw rgba(0, 0, 0, 0.2));
 }
 
 .negative-card {

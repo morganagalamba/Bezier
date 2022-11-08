@@ -9,35 +9,33 @@
 
   <body>
     <section id="canvas_bezier_container">
-      <canvas id="canvas_bezier" class="card"></canvas>
+      <canvas id="canvas_bezier" class="board"></canvas>
     </section>
     <aside class="card">
       <h1>
-        Curvas de <br />
-        <b>Bezier</b>
+        Curvas de Bezier</b>
       </h1>
-      <div class="icons">
-        <button onclick="novaCurva()" class="card" title="Nova curva">
-          <p>Nova Curva</p>
-        </button>
-        <button onclick="deletarCurva()" class="card" title="Deletar curva">
-          Excluir
-        </button>
-        <button
-          onclick="moverPonto()"
-          id="moverPontoButton"
-          class="card"
-          title="Mover Ponto"
-        >
-          Selecionar
-        </button>
-        <button onclick="curvaAnterior()" class="card" title="Curva Anterior">
-          Curva anterior
-        </button>
-        <button onclick="proximaCurva()" class="card" title="Próxima Curva">
-          Próxima curva
-        </button>
-      </div>
+      <button onclick="novaCurva()" class="card" title="Nova curva">
+        <p>Nova Curva</p>
+      </button>
+      <button onclick="deletarCurva()" class="card" title="Deletar curva">
+        Excluir
+      </button>
+      <button
+        onclick="moverPonto()"
+        id="moverPontoButton"
+        class="card"
+        title="Mover Ponto"
+      >
+        Selecionar
+      </button>
+      <button onclick="curvaAnterior()" class="card" title="Curva Anterior">
+        Curva anterior
+      </button>
+      <button onclick="proximaCurva()" class="card" title="Próxima Curva">
+        Próxima curva
+      </button>
+
       <div class="avaluation">
         <input
           type="number"
@@ -49,6 +47,7 @@
         />
         <button onclick="mudarAvaliacao()" class="card">Mudar Avaliação</button>
       </div>
+
       <button
         onclick="alternarPontosControle()"
         id="pontosControleButton"
