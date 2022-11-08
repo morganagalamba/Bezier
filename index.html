@@ -1,58 +1,77 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Curvas de bezier</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
 
-<head>
-	<title>Curvas de bezier</title>
-	<link href="style.css" rel="stylesheet" type="text/css" />
-</head>
+  <body>
+    <section id="canvas_bezier_container">
+      <canvas id="canvas_bezier" class="card"></canvas>
+    </section>
+    <aside class="card">
+      <h1>
+        Curvas de <br />
+        <b>Bezier</b>
+      </h1>
+      <div class="icons">
+        <button onclick="novaCurva()" class="card" title="Nova curva">
+          <p>Nova Curva</p>
+        </button>
+        <button onclick="deletarCurva()" class="card" title="Deletar curva">
+          Excluir
+        </button>
+        <button
+          onclick="moverPonto()"
+          id="moverPontoButton"
+          class="card"
+          title="Mover Ponto"
+        >
+          Selecionar
+        </button>
+        <button onclick="curvaAnterior()" class="card" title="Curva Anterior">
+          Curva anterior
+        </button>
+        <button onclick="proximaCurva()" class="card" title="Próxima Curva">
+          Próxima curva
+        </button>
+      </div>
+      <div class="avaluation">
+        <input
+          type="number"
+          min="0"
+          value="100"
+          class="negative-card"
+          id="avaliacoesCurva"
+          step="10"
+        />
+        <button onclick="mudarAvaliacao()" class="card">Mudar Avaliação</button>
+      </div>
+      <button
+        onclick="alternarPontosControle()"
+        id="pontosControleButton"
+        class="card active"
+      >
+        Pontos de controle
+      </button>
+      <button
+        onclick="alternarPoligonaisControle()"
+        id="poligonaisControleButton"
+        class="card active"
+      >
+        Poligonais de controle
+      </button>
+      <button
+        onclick="alternarExibicaoCurvas()"
+        id="exibicaoCurvasButton"
+        class="card active"
+      >
+        Curvas
+      </button>
+    </aside>
 
-<body>
-
-    <div class = "canvas">
-        <canvas id="canvas" width="1400px" height="500px"></canvas>
-        <legend id="mensagem"></legend>
-    </div>
-    <div class="bottom">
-        <div class="bottom-group">
-            <div class = "toggle-card">
-                <div class = "toggle-group" >
-                    <input id="togglePontos" class="toggle" type="checkbox">
-                    <label for="toggle">Pontos de Controle</label>
-                </div>
-                <div class = "toggle-group"> 
-                    <input id="togglePoligonais" class="toggle" type="checkbox">
-                    <label for="toggle">Poligonais de Controle</label>
-                </div>
-                <div class ="toggle-group">
-                    <input id="toggleCurvas" class="toggle" type="checkbox">
-                    <label for="toggle">Curvas</label>
-                </div>     
-            </div>
-            <div class="buttons">
-                <button id="adicionaCurva" class="add-rem">+ Adicionar Curva</button>
-                <button id="removeCurva" class="add-rem">- Remover Curva</button>
-                <button id="adicionaPonto" class="add-rem">+ Adicionar Ponto</button>
-            </div>
-            <div class="adicoes-curva">
-                <h3>Adições da curva</h3>
-                <input type="number" min="0" value="200" class="negative-card" id="avaliacoesCurva">
-            </div>
-            
-        </div>
-        <div class="navegacao-curvas">
-            <p>Navegar entre curvas</p>
-            <button id="anterior" class="nav-but">Anterior</button>
-            <button id="posterior" class="nav-but">Proximo</button>
-        </div>
-        <div class="navegacao-pontos">
-            <p>Navegar entre pontos</p>
-            <button id="pontoAnterior" class="nav-but">Anterior</button>
-            <button id="pontoPosterior" class="nav-but">Proximo</button>
-        </div>
-    </div>
-    
-	<script src="script.js"></script>
-
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
