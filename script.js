@@ -1,235 +1,224 @@
-// PONTO E CURVA 
-class Ponto {
- constructor (x, y){
-   this.x = x;
-   this.y = y;
- }
+var canvas = document.getElementById("canvas_bezier");
+
+canvas.width = document.getElementById("canvas_bezier_container").scrollWidth;
+canvas.height = document.getElementById("canvas_bezier_container").scrollHeight - 0.042 * window.innerHeight;
+
+var context = canvas.getContext("2d");
+var rect = canvas.getBoundingClientRect();
+var pontos = [];
+var curvas = [pontos];
+var avaliacoesCurva = 200;
+var quant = 0;
+var pontosControle = 1;
+var poligonaisControle = 1;
+var exibirCurva = 1;
+var moverSelecionado = false;
+var noCirculo = false;
+
+
+
+//------------------ CONTROLES -------------------
+function novaCurva() {
+  if (curvas[quant].length != 0) {
+    pontos = [];
+    quant = curvas.length;
+    gerarCurva();
+  }
 }
-function interpol (p1, p2, t){
- if(t>=0 && t<=1){
-   p = new Ponto;
-   p.x = (1-t)*p1.x + t*p2.x;
-   p.y = (1-t)*p1.y + t*p2.y;
-   return p;
- }else return -1;
-   
- }
-function deCasteljau(pontos, t) {
-  if (pontos.length == 2) {
-  return interpol(pontos[0], pontos[1], t)
-  }else {
-    var aux = [];
-    let i = 0;
-    for(i; i < (pontos.length - 1); i++) {
-      aux.push(interpol(pontos[i], pontos[i+1], t));
+
+function deletarCurva() {
+  curvas.splice(quant, 1);
+  quant = curvas.length - 1;
+  if (quant == -1) {
+    quant = 0;
+    pontos = [];
+  }
+  else {
+    pontos = curvas[quant];
+  }
+  gerarCurva();
+}
+
+function curvaAnterior() {
+  if (quant > 0) {
+    quant--;
+    pontos = curvas[quant];
+    gerarCurva();
+  }
+}
+
+function proximaCurva() {
+  if (quant < curvas.length - 1) {
+    quant++;
+    pontos = curvas[quant];
+    gerarCurva();
+  }
+}
+
+function mudarAvaliacao() {
+  avaliacoesCurva = document.getElementById("avaliacoesCurva").value;
+  gerarCurva();
+}
+
+function moverPonto() {
+  document.getElementById("moverPontoButton").classList.toggle('active');
+  moverSelecionado = true;
+}
+
+function alternarPontosControle(evt) {
+  document.getElementById('pontosControleButton').classList.toggle('active')
+  pontosControle = !pontosControle;
+  gerarCurva();
+}
+
+function alternarPoligonaisControle() {
+  document.getElementById('poligonaisControleButton').classList.toggle('active')
+  poligonaisControle = !poligonaisControle;
+  gerarCurva();
+}
+
+function alternarExibicaoCurvas() {
+  document.getElementById('exibicaoCurvasButton').classList.toggle('active')
+  exibirCurva = !exibirCurva;
+  gerarCurva();
+}
+
+//------------ Mouse ----------------
+canvas.addEventListener("mousedown", function (event) {
+  if (event.which == 1 && !moverSelecionado) {
+    let x = event.clientX - rect.left;
+    let y = event.clientY - rect.top;
+    pontos.push({ x: x, y: y });
+    curvas[quant] = pontos;
+    gerarCurva();
+  } else if (event.which == 1 && moverSelecionado) {
+    let x = event.clientX - rect.left;
+    let y = event.clientY - rect.top;
+    let indice = estaNoCirculo(({ x: x, y: y }));
+    if (noCirculo) {
+      canvas.addEventListener("mouseup", onMouseUp = (event) => {
+        canvas.removeEventListener('mouseup', onMouseUp);
+        canvas.removeEventListener('mousemove', onMouseMove);
+      });
+      canvas.addEventListener("mousemove", onMouseMove = (event) => {
+        curvas[quant][indice].x = event.clientX - canvas.getBoundingClientRect().left;
+        curvas[quant][indice].y = event.clientY - canvas.getBoundingClientRect().top;
+        gerarCurva();
+      });
     }
-    return deCasteljau(aux, t);
-  }
-}
-
-// ELEMENTOS - html
-var canvas = document.getElementById("canvas");
-var canvas2d = canvas.getContext("2d");
-//toggle
-var togglePontos = document.getElementById("togglePontos");
-var togglePoligonais = document.getElementById("togglePoligonais");
-var toggleCurvas = document.getElementById("toggleCurvas");
-//botoes
-var adcCurva = document.getElementById("adicionaCurva");
-var rmvCurva = document.getElementById("removeCurva");
-var adcPonto = document.getElementById("adicionaPonto");
-//var rmvPonto = document.getElementById("removePonto");
-var curvaAnterior = document.getElementById("anterior");
-var curvaPosterior = document.getElementById("posterior");
-var pontoAnterior = document.getElementById("pontoAnterior");
-var pontoPosterior = document.getElementById("pontoPosterior");
-var avaliacoes = document.getElementById("avaliacoesCurva");
-var mensagem = document.getElementById("mensagem");
-
-
-// VARIAVEIS E CONSTANTES
-const RAIO_PONTO = 30;
-var curvas = [];
-curvas.push([]);
-var curvaSelecionada = -1;
-var pontoSelecionado = [];
-pontoSelecionado.push(0);
-var numAvaliacoes = 200;
-// do canvas
-var clique = false;
-var pontosAparentes = true;
-var poligonaisAparentes = true;
-var curvasAparentes = true;
-var estadoCanvas = 0;
-
-
-// FUNÇOES DE DESENHO
-function desenharPonto(p1) {
-  canvas2d.beginPath();
-  canvas2d.arc(p1.x, p1.y, RAIO_PONTO, 0, 2 * Math.PI);
-  canvas2d.stroke();
-}
-function desenharReta(p1, p2){
-  canvas2d.beginPath();
-  canvas2d.lineTo(p1.x, p1.y);
-  canvas2d.lineTo(p2.x, p2.y);
-  canvas2d.strokeStyle = "3px"; // deixar linha mais grossa
-  canvas2d.stroke();
-}
-function desenharPoligonos(pontos){
-  let i = 0;
-  for(i; i < pontos.lenght - 1; i++){
-    desenharReta(pontos[i], pontos[i+1]);
-  }
-}
-function desenharCurva(curva) {
-  if(curva.lenght > 2){
-    var bezier = [];
-    bezier.push(curva[0]);
-    let i = 0;
-    for(i; i<= numAvaliacoes; i++){
-      bezier.push(deCasteljau(curva, i / numAvaliacoes));
+    moverSelecionado = false;
+    document.getElementById("moverPontoButton").classList.toggle('active');
+    noCirculo = false;
     }
-    bezier.push(curva[curva.lenght - 2]);
-    desenharPoligonos(bezier);
+});
+
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+  if (!moverSelecionado) {
+    let x = event.clientX - rect.left;
+    let y = event.clientY - rect.top;
+    excluirPonto(x, y);
   }
-}
-function redesenhar() {
-  canvas2d.clearRect(0, 0, width, height);
-  if(pontosAparentes){
-    let i = 0;
-    for(i; i < curvas.length; i++){
-      let j = 0;
-      for(j; j < curvas[i].length; j++){
-        if((j == pontoSelecionado[curvaSelecionada]) && (i == curvaSelecionada)){
-          canvas2d.strokeStyle = "blue";
-        } else {
-          canvas2d.strokeStyle = "green";
+});
+
+//------------ Funções de desenho ----------------
+function gerarCurva() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (k = 0; k < curvas.length; k++) {
+    if (k == quant) {
+      if (pontosControle) {
+        for (c = 0; c < curvas[k].length; c++) {
+          mostrarPonto(curvas[k][c].x, curvas[k][c].y, "rgba(91, 101, 192, 1)");
         }
-        desenharPonto(curvas[i][j]);
       }
-      
+      if (poligonaisControle) {
+        desenharReta(curvas[k], "rgba(91,101,192,1)", 1);
+      }
+      if (exibirCurva) {
+        desenharCurva(curvas[k], "rgba(91,101,192, 1)", 3);
+      }
+    }
+    else {
+      if (pontosControle) {
+        for (c = 0; c < curvas[k].length; c++) {
+          mostrarPonto(curvas[k][c].x, curvas[k][c].y, "rgba(91, 101, 192, 0.25)"); 
+        }
+      }
+      if (poligonaisControle) {
+        desenharReta(curvas[k], "rgba(91, 101, 192, 0.25)", 1);
+      }
+      if (exibirCurva) {
+        desenharCurva(curvas[k], "rgba(91, 101, 192, 0.25)", 1);
+      }
     }
   }
-  if(poligonaisAparentes){
-    let i = 0;
-    for(i; i < curvas.length; i++){
-     if(i == curvaSelecionada){
-       canvas2d.strokeStyle = "purple";
-     } else {
-       canvas2d.strokeStyle = "pink";
-     }
-    }
-  }
+}
 
-  if(curvasAparentes && numAvaliacoes > 0){
-    let i = 0;
-    for(i; i < curvas.length; i++){
-     if(i == curvaSelecionada){
-       canvas2d.strokeStyle = "red";
-     } else {
-       canvas2d.strokeStyle = "orange";
-     }
-      desenharCurva(curvas[i]);
+function mostrarPonto(x, y, cor) {
+  context.beginPath();
+  context.arc(x, y, 10, 0, 2 * Math.PI, true);
+  context.moveTo(x, y);
+  context.strokeStyle = cor;
+  context.fillStyle = cor;
+  context.fill();
+  context.stroke();
+}
+
+function desenharReta(pontos, cor, linha) {
+  for (v = 0; v < pontos.length - 1; v++) {
+    let x2 = pontos[v + 1].x;
+    let y2 = pontos[v + 1].y;
+    context.lineWidth = linha;
+    context.beginPath();
+    context.moveTo(pontos[v].x, pontos[v].y);
+    context.lineTo(x2, y2);
+    context.strokeStyle = cor;
+    context.stroke();
+  }
+}
+
+function desenharCurva(pontos, cor, linha) {
+  let curva = [];
+  for (n = 0; n <= avaliacoesCurva; n++) {
+    let ponto = deCasteljau(pontos, n);
+    curva.push({ x: ponto.x, y: ponto.y });
+  }
+  desenharReta(curva, cor, linha);
+}
+
+function deCasteljau(pontos, n) {
+  if (pontos.length > 1) {
+    let aux = [];
+    let xX;
+    let yY;
+    for (i = 0; i < pontos.length - 1; i++) {
+      xX = pontos[i].x * (1 - (n / avaliacoesCurva)) + pontos[i + 1].x * (n / avaliacoesCurva);
+      yY = pontos[i].y * (1 - (n / avaliacoesCurva)) + pontos[i + 1].y * (n / avaliacoesCurva);
+      aux.push({ x: xX, y: yY });
+    }
+    return deCasteljau(aux, n);
+  }
+  else {
+    return pontos[0];
+  }
+}
+
+function excluirPonto(posX, posY) {
+  indice = estaNoCirculo({ x: posX, y: posY });
+  if (indice > -1) {
+    pontos.splice(indice, 1);
+    gerarCurva();
+  }
+}
+
+function estaNoCirculo(ponto) {
+  for (f = 0; f < pontos.length; f++) {
+    var v = { x: pontos[f].x - ponto.x, y: pontos[f].y - ponto.y };
+    if (Math.sqrt(v.x * v.x + v.y * v.y) <= 10) {
+      noCirculo = true;
+      return f;
     }
   }
-  }
-
-//CANVAS EVENTS
-canvas.addEventListener("mousemove", function(event){
-  if(clique){
-    var p1 = new Ponto(event.offsetX, event.offsetY);
-    if(estadoCanvas == 1){
-      curvas[curvaSelecionada].splice(curvas[curvaSelecionada].lenght -1, 1, p1);
-    }else if(estadoCanvas == 2) {
-      curvas[curvaSelecionada].splice(pontoSelecionado[curvaSelecionada], 1, p1);
-    }
-    redesenhar();
-  }
-});
-canvas.addEventListener("mousedown", function(event){
-  clique = true;
-  var p1 = new Ponto(event.offsetX, event.offsetY);
-  if(estadoCanvas == 1){
-    curvas[curvaSelecionada].push(p1);
-  }else if (estadoCanvas == 2) {
-    curvas[curvaSelecionada].splice(pontoSelecionado[curvaSelecionada], 1, p1);
-  }
-  redesenhar();
-});
-canvas.addEventListener("mouseup", function(event){
-  clique = false;
-  redesenhar();
-});
-
-//FUNCIOALIDADE BOTOES
-//curva
-adcCurva.addEventListener("click", function(event){
-  if((curvaSelecionada == -1 || curvas[curvaSelecionada].lenght>1)){
-    estadoCanvas = 1;
-    var novaCurva= [];
-    curvas.push(novaCurva);
-    pontoSelecionado.push(0);
-    curvaSelecionada++;
-    mensagem.innerText = "clique na tela para adicionar pontos de controle"
-  }else{
-    mensagem.innerText = "não é possivel adicionar uma nova curva antes de finalizar a atual"
-  }
-});
-rmvCurva.addEventListener("click", function(event){
-  if(curvas.length > 0) {
-    curvas.splice(curvaSelecionada, 1);
-    pontoSelecionado.splice(curvaSelecionada, 1);
-    if(curvaSelecionada > 0){
-      curvaSelecionada--;
-    };
-  }
-  redesenhar();
-});
-curvaAnterior.addEventListener("click", function(event){
-  if(curvaSelecionada > 0){
-    curvaSelecionada--;
-  }
-  redesenhar();
-});
-curvaPosterior.addEventListener("click", function(event){
-  if(curvaSelecionada < curvas.length - 2){
-    curvaSelecionada++;
-  }
-  redesenhar();
-});
-//pontos
-adcPonto.addEventListener("click", function(event){
-  estadoCanvas = 1;
-  mensagem.innerText = "clique na tela para adicionar pontos de controle";
-});
-pontoAnterior.addEventListener("click", function(event){
-  if(pontoSelecionado[curvaSelecionada] > 0){
-    pontoSelecionado[curvaSelecionada]--;
-    redraw();
-  }else redraw();
-});
-pontoPosterior.addEventListener("click", function(event){
-  if(pontoSelecionado[curvaSelecionada] < pontoSelecionado[curvaSelecionada].lenght - 1){
-    pontoSelecionado[curvaSelecionada]++;
-    redraw();
-  }else redraw();
-});
-//toggles
-togglePontos.addEventListener("click", function(event){
-  pontosAparentes = !pontosAparentes;
-  redesenhar();
-});
-togglePoligonais.addEventListener("click", function(event){
-  poligonaisAparentes = !poligonaisAparentes;
-  redesenhar();
-});
-toggleCurvas.addEventListener("click", function(event){
-  curvasAparentes = !curvasAparentes;
-  redesenhar();
-});
-avaliacoes.addEventListener("keyup", function(event){
-  var entrada = event.target.value;
-  numAvaliacoes = parseInt(entrada);
-  redesenhar();
-})
+  return -1;
+}
