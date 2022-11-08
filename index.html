@@ -2,54 +2,43 @@
 <html>
 
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 	<title>Curvas de bezier</title>
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 
-    <p>Clique ESPAÇO para adicionar novos pontos de controle à curva selecionada</p>
-    <p>Clique DELETE para remover pontos de controle da curva selecionada</p>
-    <div class="canvas">
-        <canvas width="1400px" height="500px">
-            
-        </canvas>
+  <section id="canvas_bezier_container">
+      <canvas id="canvas_bezier" class="card"></canvas>
+  </section>
+  <div class="card">
+    <div class="icons">
+      <div class="buttons">
+        <button onclick="novaCurva()" id="adicionaCurva" class="add-rem">+ Adicionar Curva</button>
+        <button onclick="deletarCurva()" id="removeCurva" class="add-rem">- Remover Curva</button>
+        <button onclick="moverPonto()" id="moverPontoButton" class="card" title="Mover Ponto">Mover Ponto</button>
+      </div>
+    <div class="navegacao-curvas">
+      <p>Navegar entre curvas</p>
+      <button onclick="curvaAnterior()" id="anterior" class="nav-but">Anterior</button>
+      <button onclick="proximaCurva()" id="posterior" class="nav-but">Proximo</button>
+  </div>
+    <div class="avaluation">
+      <input type="number" min="0" value="200" class="negative-card" id="avaliacoesCurva">
+      <button onclick="mudarAvaliacao()" class="update">Atualizar</button>
     </div>
-    <div class="bottom">
-        <div class="bottom-group">
-            <div class = "toggle-card">
-                <div class = "toggle-group" >
-                    <input id="toggle" class="toggle" type="checkbox">
-                    <label for="toggle">Pontos de Controle</label>
-                </div>
-                <div class = "toggle-group"> 
-                    <input id="toggle" class="toggle" type="checkbox">
-                    <label for="toggle">Poligonais de Controle</label>
-                </div>
-                <div class ="toggle-group">
-                    <input id="toggle" class="toggle" type="checkbox">
-                    <label for="toggle">Curvas</label>
-                </div>     
-            </div>
-            <div class="buttons">
-                <button class="add-rem">+ Adicionar Curva</button>
-                <button class="add-rem">- Remover Curva</button>
-            </div>
-            <div class="adicoes-curva">
-                <h3>Adições da curva</h3>
-                <input type="number" min="0" value="200" class="negative-card" id="avaliacoesCurva">
-            </div>
-            
-        </div>
-        <div class="navegacao-curvas">
-            <p>Navegar entre curvas</p>
-            <button class="nav-but">Anterior</button>
-            <button class="nav-but">Proximo</button>
-        </div>
+    <div class="select">
+      <button onclick="alternarPontosControle()" id="pontosControleButton" class="card_active">Pontos de controle</button>
+      <button onclick="alternarPoligonaisControle()" id="poligonaisControleButton" class="card_active">Poligonais de controle</button>
+      <button onclick="alternarExibicaoCurvas()" id="exibicaoCurvasButton" class="card_active">Curvas</button>
     </div>
     
-	<script src="script.js"></script>
+  </div>
 
+	<script src="script.js"></script>
 </body>
 
 </html>
+
