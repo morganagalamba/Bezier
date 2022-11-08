@@ -1,36 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rowdies:wght@300;400;700&display=swap');
 
 html * {
-  margin: 0;
-  padding: 0;
-  font-family: 'Barlow', sans-serif;
-  text-align: center;
+  font-family: 'Inter', sans-serif;
+
 }
 
 button {
   border: none;
+  background-color: #5B65C0;
   transition: 0.1s;
+  border-radius: 5px;
+  color: white;
+  height: 25px;
+  padding: 5px;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
 }
 
 button:active {
-  box-shadow: inset 0.486vw 0.486vw 0.694vw rgba(0, 0, 0, 0.2);
-  filter: drop-shadow(-0.486vw -0.486vw 0.694vw rgba(255, 255, 255, 0))
-    drop-shadow(0.486vw 0.486vw 0.694vw rgba(0, 0, 0, 0));
+  background-color: white;
 }
 
 .active {
-  box-shadow: inset 0.486vw 0.486vw 0.694vw rgba(0, 0, 0, 0.2);
-  filter: drop-shadow(-0.486vw -0.486vw 0.694vw rgba(255, 255, 255, 0))
-    drop-shadow(0.486vw 0.486vw 0.694vw rgba(0, 0, 0, 0));
+  background-color: white;
+  color: black;
 }
 
 body {
-  display: grid;
-  grid-template-columns: 1fr 24.306vw;
-  background: white;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
 }
 
 section {
@@ -45,64 +49,35 @@ section {
   padding: 1.389vw;
 }
 
-aside {
-  margin-top: 10%;
-  width: 85%;
-  height: 60%;
-  grid-column: 2;
-
+.icons{
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: space-around;
-}
+  align-items: flex-end;
 
-.icons {
-  width: 100%;
-  height: 17vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
 }
 
 .avaluation {
   display: flex;
   align-items: center;
-  flex-direction: row;
+}
+.navegacao-curvas{
+  align-items: center;
+}
+.nav-but{
+  width: 48%;
+  height: 25px;
 }
 
-.avaluation > input {
-  height: 5vh;
-  width: 5vw;
-}
-
-.avaluation > .card {
-  width: 6.944vw;
-  height: 2vw;
-}
-
-aside > .card {
-  width: 50%;
-  height: 2vw;
-  font-size: 1vw;
-}
-
-.board {
-  background-color: white;
-
-  filter: drop-shadow(0.486vw 0.486vw 0.694vw rgba(0, 0, 0, 0.2));
-  border-radius: 20px;
-}
-
-.card {
-  border-radius: 25px;
-}
 
 .negative-card {
   font-size: 1.5vw;
-  background-color: #e3edf7;
-  border-radius: 1.042vw;
-  box-shadow: inset 0.486vw 0.486vw 0.694vw rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  box-shadow: inset 0.486vw 0.486vw 0.694vw rgba(0,0,0,0.2);
   border: none;
   outline: none;
+}
+
+.select{
+  display: flex;
+  flex-direction: column;
 }

@@ -7,34 +7,15 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
 
-  <body>
-    <section id="canvas_bezier_container">
-      <canvas id="canvas_bezier" class="board"></canvas>
-    </section>
-    <aside class="card">
-      <h1>
-        Curvas de Bezier</b>
-      </h1>
-      <button onclick="novaCurva()" class="card" title="Nova curva">
-        <p>Nova Curva</p>
-      </button>
-      <button onclick="deletarCurva()" class="card" title="Deletar curva">
-        Excluir
-      </button>
-      <button
-        onclick="moverPonto()"
-        id="moverPontoButton"
-        class="card"
-        title="Mover Ponto"
-      >
-        Selecionar
-      </button>
-      <button onclick="curvaAnterior()" class="card" title="Curva Anterior">
-        Curva anterior
-      </button>
-      <button onclick="proximaCurva()" class="card" title="Próxima Curva">
-        Próxima curva
-      </button>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Curvas de bezier</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+
 
       <div class="avaluation">
         <input
@@ -48,29 +29,36 @@
         <button onclick="mudarAvaliacao()" class="card">Mudar Avaliação</button>
       </div>
 
-      <button
-        onclick="alternarPontosControle()"
-        id="pontosControleButton"
-        class="card active"
-      >
-        Pontos de controle
-      </button>
-      <button
-        onclick="alternarPoligonaisControle()"
-        id="poligonaisControleButton"
-        class="card active"
-      >
-        Poligonais de controle
-      </button>
-      <button
-        onclick="alternarExibicaoCurvas()"
-        id="exibicaoCurvasButton"
-        class="card active"
-      >
-        Curvas
-      </button>
-    </aside>
 
-    <script src="script.js"></script>
-  </body>
+  <section id="canvas_bezier_container">
+      <canvas id="canvas_bezier" class="card"></canvas>
+  </section>
+  <div class="card">
+    <div class="icons">
+      <div class="buttons">
+        <button onclick="novaCurva()" id="adicionaCurva" class="add-rem">+ Adicionar Curva</button>
+        <button onclick="deletarCurva()" id="removeCurva" class="add-rem">- Remover Curva</button>
+        <button onclick="moverPonto()" id="moverPontoButton" class="card" title="Mover Ponto">Mover Ponto</button>
+      </div>
+    <div class="navegacao-curvas">
+      <p>Navegar entre curvas</p>
+      <button onclick="curvaAnterior()" id="anterior" class="nav-but">Anterior</button>
+      <button onclick="proximaCurva()" id="posterior" class="nav-but">Proximo</button>
+  </div>
+    <div class="avaluation">
+      <input type="number" min="0" value="200" class="negative-card" id="avaliacoesCurva">
+      <button onclick="mudarAvaliacao()" class="update">Atualizar</button>
+    </div>
+    <div class="select">
+      <button onclick="alternarPontosControle()" id="pontosControleButton" class="card_active">Pontos de controle</button>
+      <button onclick="alternarPoligonaisControle()" id="poligonaisControleButton" class="card_active">Poligonais de controle</button>
+      <button onclick="alternarExibicaoCurvas()" id="exibicaoCurvasButton" class="card_active">Curvas</button>
+    </div>
+    
+  </div>
+
+	<script src="script.js"></script>
+</body>
+
 </html>
+
