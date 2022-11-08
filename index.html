@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Curvas de bezier</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
 
 <head>
 	<meta charset="utf-8">
@@ -8,7 +15,20 @@
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body>
+
+
+      <div class="avaluation">
+        <input
+          type="number"
+          min="0"
+          value="100"
+          class="negative-card"
+          id="avaliacoesCurva"
+          step="10"
+        />
+        <button onclick="mudarAvaliacao()" class="card">Mudar Avaliação</button>
+      </div>
+
 
   <section id="canvas_bezier_container">
       <canvas id="canvas_bezier" class="card"></canvas>

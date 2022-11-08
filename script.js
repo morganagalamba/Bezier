@@ -1,3 +1,4 @@
+
 var canvas = document.getElementById("canvas_bezier");
 
 canvas.width = document.getElementById("canvas_bezier_container").scrollWidth;
@@ -53,6 +54,7 @@ function proximaCurva() {
     pontos = curvas[quant];
     gerarCurva();
   }
+  gerarCurva()
 }
 
 function mudarAvaliacao() {
@@ -210,6 +212,7 @@ function excluirPonto(posX, posY) {
     pontos.splice(indice, 1);
     gerarCurva();
   }
+
 }
 
 function estaNoCirculo(ponto) {
@@ -222,3 +225,4 @@ function estaNoCirculo(ponto) {
   }
   return -1;
 }
+

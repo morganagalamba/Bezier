@@ -1,7 +1,9 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rowdies:wght@300;400;700&display=swap');
 
 html * {
   font-family: 'Inter', sans-serif;
+
 }
 
 button {
@@ -51,6 +53,7 @@ section {
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
+
 }
 
 .avaluation {
